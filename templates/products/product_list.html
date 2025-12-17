@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="header-actions">
+    <h2>Products</h2>
+    <a href="{% url 'product_create' %}" class="btn btn-primary">+ Add Product</a>
+</div>
+
+<div class="product-grid">
+    {% for product in products %}
+    <div class="product-card">
+        <h3>{{ product.name }}</h3>
+        <p class="description">{{ product.description|truncatewords:20 }}</p>
+        <div class="product-info">
+            <span class="price">${{ product.price }}</span>
+            <span class="stock">Stock: {{ product.stock }}</span>
+        </div>
+        <div class="actions">
+            <a href="{% url 'product_update' product.pk %}" class="btn btn-small">Edit</a>
+            <a href="{% url 'product_delete' product.pk %}" class="btn btn-small btn-danger">Delete</a>
+        </div>
+    </div>
+    {% empty %}
+    <p class="empty-state">No products yet. Create your first product!</p>
+    {% endfor %}
+</div>
+{% endblock %}
